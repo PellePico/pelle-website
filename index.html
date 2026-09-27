@@ -1,0 +1,970 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pelle Pico</title>
+<meta name="description" content="Pelle Pico: data science student in Copenhagen, into AI, programming and new technology.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pelle Pico">
+<meta property="og:description" content="Data science student at CBS. Open to student positions in tech, IT, AI and data.">
+<meta name="theme-color" content="#F6F7F9">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230E1116'/%3E%3Ccircle cx='11.5' cy='16' r='3.2' fill='%23fff'/%3E%3Ccircle cx='20.5' cy='16' r='3.2' fill='%231F4BFF'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js")</script>
+<style>
+/* ================= Tokens ================= */
+:root{
+  --bg:#F6F7F9; --surface:#FFFFFF; --ink:#0E1116; --muted:#5B6270; --line:#E2E5EA;
+  --accent:#1F4BFF; --on-accent:#FFFFFF; --amber:#F2A516;
+  --chip:#ECEEF2; --chip-hover:#E0E3E9; --land:#E7E9EE; --miss:#B7BCC6;
+  --btn:#0E1116; --btn-hover:#262B35; --btn-fg:#FFFFFF;
+  --dot:#0E1116;
+  --display:"Geist",system-ui,sans-serif; --display-weight:700; --display-track:-.055em; --display-case:none;
+  --shadow:0 1px 2px rgba(14,17,22,.04),0 12px 32px -12px rgba(31,75,255,.18);
+  --s1:8px;--s2:16px;--s3:24px;--s4:40px;--s5:64px;--s6:120px;
+  --ease:cubic-bezier(.22,1,.36,1); --spring:cubic-bezier(.34,1.56,.64,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.65 "Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background-color .4s,color .4s}
+.wrap{max-width:1120px;margin:0 auto;padding:0 var(--s3);position:relative}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2{font-family:var(--display);font-weight:var(--display-weight);letter-spacing:var(--display-track);text-transform:var(--display-case)}
+h2{font-size:clamp(30px,4vw,44px);line-height:1.05}
+.sub{color:var(--muted);max-width:56ch;margin-top:var(--s1)}
+
+/* ---------- nav ---------- */
+nav{display:flex;justify-content:space-between;align-items:center;padding:var(--s3) 0;gap:var(--s2);flex-wrap:wrap}
+nav .name{font-weight:600;letter-spacing:-.02em;text-decoration:none}
+.navr{display:flex;align-items:center;gap:var(--s3)}
+nav ul{display:flex;gap:var(--s3);list-style:none;font-size:14px}
+nav ul a{text-decoration:none;color:var(--muted);transition:color .2s}
+nav ul a:hover{color:var(--ink)}
+:root{--tabs-dur:250ms;--tabs-ease:cubic-bezier(0.22,1,0.36,1)}
+@media (max-width:860px){nav ul{display:none}}
+
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:1fr 250px;gap:var(--s5);align-items:end;padding:var(--s5) 0 var(--s5)}
+.hero>*{min-width:0}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px 4px 10px}
+.status i{width:8px;height:8px;border-radius:50%;background:#1DB954;box-shadow:0 0 0 3px rgba(29,185,84,.18)}
+h1{font-size:clamp(64px,10vw,136px);line-height:.88;margin:var(--s3) 0 var(--s4)}
+.lede{font-size:21px;line-height:1.5;max-width:36ch;letter-spacing:-.012em}
+.lede span{color:var(--muted)}
+.ctas{display:flex;gap:var(--s1);margin-top:var(--s4);flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:500;font-size:15px;
+  background:var(--btn);color:var(--btn-fg);border:1px solid var(--btn);
+  transition:transform .25s var(--spring),background-color .2s;
+}
+.btn:hover{transform:translateY(-2px);background:var(--btn-hover)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn.ghost{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--muted)}
+
+.portrait{align-self:center;position:relative}
+
+/* recommendation */
+.quote{margin-top:var(--s4);max-width:560px;padding-left:var(--s3);border-left:2px solid var(--accent)}
+.quote blockquote{font-size:18px;line-height:1.5;letter-spacing:-.01em}
+.quote figcaption{margin-top:var(--s1);font-size:13px;color:var(--muted)}
+.quote details{margin-top:6px}
+.quote summary{cursor:pointer;font-size:13px;color:var(--ink);text-decoration:underline;text-underline-offset:3px;width:max-content;list-style:none}
+.quote summary::-webkit-details-marker{display:none}
+.quote summary:hover{color:var(--accent)}
+.quote details[open] summary{margin-bottom:var(--s2)}
+.quote details p{font-size:15px;color:var(--muted);margin-bottom:var(--s2);max-width:62ch}
+.recbody{overflow:hidden}
+/* transitions.dev "card-resize" recipe */
+:root{--resize-dur:300ms;--resize-ease:cubic-bezier(0.22,1,0.36,1)}
+.t-resize{transition:width var(--resize-dur) var(--resize-ease),height var(--resize-dur) var(--resize-ease);will-change:width,height}
+@media (prefers-reduced-motion:reduce){.t-resize{transition:none!important}}
+#dots{width:100%;aspect-ratio:570/720;display:block;touch-action:pan-y}
+.portrait figcaption{font-size:12px;color:var(--muted);text-align:center;margin-top:4px}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;gap:var(--s3);padding-top:var(--s3)}
+  .portrait{width:180px;order:-1}
+}
+
+/* ---------- sections ---------- */
+section{padding:var(--s6) 0 0;position:relative}
+.head{display:grid;grid-template-columns:280px 1fr;gap:var(--s5);margin-bottom:var(--s4);align-items:end}
+
+/* gantt */
+.gantt{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:var(--s3);position:relative;box-shadow:var(--shadow);margin-bottom:var(--s4)}
+.axis,.grow{display:grid;grid-template-columns:220px 1fr;align-items:center}
+.ticks{position:relative;height:22px;font:12px "Geist Mono",monospace;color:var(--muted)}
+.ticks span{position:absolute;transform:translateX(-50%)}
+.track{position:relative;height:100%}
+.gridlines{position:absolute;top:var(--s3);bottom:56px;left:calc(var(--s3) + 220px);right:var(--s3);pointer-events:none}
+.gridlines i{position:absolute;top:0;bottom:0;width:1px;background:var(--line)}
+.gridlines .now{background:var(--ink);width:2px}
+.gridlines .now::after{content:"today";position:absolute;bottom:-20px;left:6px;font:500 11px "Geist Mono",monospace;color:var(--ink)}
+.grow{align-items:stretch;min-height:54px;border-top:1px solid var(--line);cursor:pointer;border-radius:8px;transition:background-color .2s;text-decoration:none}
+.grow:hover{background:var(--chip)}
+.grow .lab{align-self:center;font-size:14px;line-height:1.3;padding-right:var(--s2)}
+.grow .lab small{display:block;color:var(--muted);font-size:12px}
+.bar{position:absolute;top:50%;height:20px;margin-top:-10px;border-radius:5px;transform-origin:left;transition:transform .9s var(--ease)}
+.gantt:not(.drawn) .bar{transform:scaleX(0)}
+.bar.school{background:repeating-linear-gradient(-45deg,var(--muted) 0 4px,transparent 4px 8px);box-shadow:inset 0 0 0 1.5px var(--muted)}
+.bar.work{background:var(--accent)}
+.glegend{display:flex;gap:var(--s3);margin-top:var(--s2);font-size:12px;color:var(--muted);flex-wrap:wrap}
+.glegend i{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+@media (max-width:760px){
+  .axis,.grow{grid-template-columns:110px 1fr}
+  .gridlines{left:calc(var(--s3) + 110px)}
+  .grow .lab small{display:none}
+  .ticks span:nth-child(even){display:none}
+}
+
+/* experience */
+.job{display:grid;grid-template-columns:280px 1fr;gap:var(--s5);padding:var(--s4) 0;border-top:1px solid var(--line);scroll-margin-top:24px}
+.job:last-child{border-bottom:1px solid var(--line)}
+.job.flash{animation:flash 1.2s var(--ease)}
+@keyframes flash{0%{background:var(--chip)}100%{background:transparent}}
+.job .org{font-weight:600;font-size:18px;letter-spacing:-.02em}
+.job .meta{color:var(--muted);font-size:14px}
+.job h3{font-size:24px;font-weight:600;letter-spacing:-.03em;line-height:1.2;margin-bottom:var(--s2);max-width:30ch}
+.job ul{list-style:none;display:grid;gap:10px;max-width:64ch}
+.job li{padding-left:22px;position:relative;opacity:.92}
+.job li::before{content:"";position:absolute;left:2px;top:.72em;width:8px;height:2px;background:var(--accent)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:var(--s2)}
+.tags span{font:12px "Geist Mono",monospace;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:2px 8px}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.skills > div{background:var(--surface);padding:var(--s3)}
+.skills h3{font-size:13px;font-weight:500;color:var(--muted);margin-bottom:var(--s1)}
+.skills p{font-size:17px;font-weight:500;letter-spacing:-.01em}
+.edu{margin-top:var(--s4)}
+.edu div{display:grid;grid-template-columns:280px 1fr auto;gap:var(--s5);padding:var(--s2) 0;border-top:1px solid var(--line);align-items:baseline}
+.edu div:last-child{border-bottom:1px solid var(--line)}
+.edu .when{color:var(--muted);font-size:14px}
+.edu b{font-weight:500}
+.edu small{color:var(--muted);font-size:14px}
+.edu .gpa{font:13px "Geist Mono",monospace;color:var(--accent)}
+
+/* outside + game */
+.outside{display:grid;grid-template-columns:1fr;max-width:820px}
+.outside>*{min-width:0}
+.list{border-top:1px solid var(--line)}
+.item{display:grid;grid-template-columns:140px 1fr;gap:var(--s3);padding:var(--s3) 0;border-bottom:1px solid var(--line)}
+.item .k{color:var(--muted);font-size:14px;padding-top:4px}
+.item .v{font-size:26px;font-weight:600;letter-spacing:-.035em;line-height:1.2}
+.item .v em{font-style:normal;color:var(--muted);font-weight:400}
+.item p{color:var(--muted);margin-top:4px;max-width:52ch;font-size:15px}
+.item.now .v::after{content:"now watching";font:500 11px "Geist Mono",monospace;color:var(--on-accent);background:var(--accent);border-radius:3px;padding:2px 6px;margin-left:10px;vertical-align:5px;letter-spacing:0}
+
+.wordsec{padding-top:var(--s2)}
+.game{display:grid;grid-template-columns:minmax(0,1fr) 250px 318px;gap:var(--s5);align-items:center;
+  background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:var(--s4);box-shadow:var(--shadow)}
+.game h2{font-size:clamp(30px,3.6vw,40px)}
+.game .hint{color:var(--muted);font-size:16px;margin:var(--s1) 0 0;line-height:1.5;max-width:34ch}
+.board{display:grid;gap:6px;width:250px}
+.brow{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.brow.shake{animation:shake .35s}
+@keyframes shake{25%,75%{transform:translateX(-5px)}50%{transform:translateX(5px)}}
+.tile{aspect-ratio:1;display:grid;place-items:center;border:1.5px solid var(--line);border-radius:6px;font:600 20px "Geist Mono",monospace;text-transform:uppercase}
+.tile.filled{border-color:var(--muted)}
+.tile.flip{animation:flip .45s var(--ease) both}
+@keyframes flip{50%{transform:rotateX(90deg)}}
+.tile.hit{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tile.near{background:var(--amber);border-color:var(--amber);color:#fff}
+.tile.miss{background:var(--miss);border-color:var(--miss);color:#fff}
+.kb{display:grid;gap:5px}
+.krow{display:flex;justify-content:center;gap:3px}
+.key{flex:1;min-width:0;max-width:29px;height:42px;border:0;border-radius:5px;background:var(--chip);color:var(--ink);font:500 12px "Geist Mono",monospace;text-transform:uppercase;cursor:pointer;transition:transform .15s var(--spring),background-color .15s}
+.key.wide{max-width:46px;font-size:10px}
+.key:hover{background:var(--chip-hover)}
+.key:active{transform:scale(.9)}
+.key.hit{background:var(--accent);color:var(--on-accent)}
+.key.near{background:var(--amber);color:#fff}
+.key.miss{background:var(--miss);color:#fff;opacity:.6}
+.msg{font-size:14px;min-height:22px;margin-top:var(--s2);color:var(--muted)}
+.reveal{display:none;margin-top:var(--s1);padding-top:var(--s2);border-top:1px solid var(--line);max-width:42ch}
+.reveal.show{display:block;animation:rise .5s var(--spring) both}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}}
+.reveal .word{font:600 13px "Geist Mono",monospace;color:var(--accent);letter-spacing:.08em}
+.reveal p{font-size:14px;margin-top:4px;line-height:1.5}
+.game .next{font-size:13px;color:var(--muted);margin-top:var(--s2)}
+.game .next b{font:500 13px "Geist Mono",monospace;color:var(--ink);white-space:nowrap}
+.gfoot{display:flex;justify-content:space-between;align-items:center;margin-top:var(--s2);font-size:12px;color:var(--muted)}
+.gfoot i{display:inline-block;width:9px;height:9px;border-radius:2px;margin:0 4px 0 0;vertical-align:-1px}
+.linkbtn{background:none;border:0;font:inherit;color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:2px}
+.linkbtn:hover{color:var(--ink)}
+.linkbtn:active{transform:translateY(1px)}
+
+@media (max-width:900px){
+  .head,.job,.edu div{grid-template-columns:1fr;gap:var(--s1)}
+  .skills{grid-template-columns:1fr 1fr}
+  .game{grid-template-columns:1fr;justify-items:center;padding:var(--s3);gap:var(--s3)}
+  .gintro{justify-self:stretch}
+  .kb{width:100%;max-width:360px}
+  section{padding-top:var(--s5)}
+}
+@media (max-width:520px){.item{grid-template-columns:1fr;gap:2px}.skills{grid-template-columns:1fr}}
+/* ---------- graph-paper background: fine grid every 24px, stronger rule every 120px ---------- */
+body{background-image:
+  linear-gradient(rgba(31,75,255,.075) 1px,transparent 1px),linear-gradient(90deg,rgba(31,75,255,.075) 1px,transparent 1px),
+  linear-gradient(rgba(31,75,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(31,75,255,.035) 1px,transparent 1px);
+  background-size:120px 120px,120px 120px,24px 24px,24px 24px;background-position:-1px -1px}
+
+/* ---------- command palette ---------- */
+.kbd{border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:6px;padding:2px 8px;font:500 12px "Geist Mono",monospace;cursor:pointer}
+.kbd:hover{color:var(--ink);border-color:var(--muted)}
+.kbd:active{transform:scale(.96)}
+#palette{margin:12vh auto auto;width:min(560px,calc(100% - 32px));border:1px solid var(--line);border-radius:14px;padding:0;background:var(--surface);color:var(--ink);
+  box-shadow:0 30px 80px -20px rgba(14,17,22,.45)}
+#palette::backdrop{background:rgba(14,17,22,.35);backdrop-filter:blur(2px)}
+#palette input{width:100%;border:0;border-bottom:1px solid var(--line);padding:16px 18px;font:400 16px "Geist",sans-serif;background:transparent;color:inherit;outline:none}
+#palette ul{list-style:none;max-height:340px;overflow:auto;padding:6px}
+#palette li{display:flex;justify-content:space-between;gap:12px;padding:9px 12px;border-radius:8px;cursor:pointer;font-size:14px}
+#palette li small{color:var(--muted);font-size:12px}
+#palette li[aria-selected=true]{background:var(--chip)}
+#palette .empty{color:var(--muted);cursor:default}
+
+/* ---------- fit picker ---------- */
+#fit .head{grid-template-columns:1fr;gap:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 16px;font:500 15px "Geist",sans-serif;cursor:pointer;transition:background-color .15s,border-color .15s,transform .2s var(--spring)}
+.chip:hover{border-color:var(--muted)}
+.chip:active{transform:scale(.96)}
+.chip[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.proof{margin-top:var(--s3);display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;min-height:60px}
+.proof .empty{color:var(--muted);font-size:15px;align-self:center}
+.pcard{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;animation:rise .4s var(--spring) both}
+.pcard b{display:block;font-weight:600;letter-spacing:-.01em}
+.pcard p{font-size:14px;margin-top:4px;opacity:.9}
+.pcard small{display:inline-block;margin-top:8px;font:12px "Geist Mono",monospace;color:var(--muted)}
+.fitsum{margin-top:var(--s2);font-size:14px;color:var(--muted);min-height:22px}
+
+/* ---------- "Email copied" toast: transitions.dev "toast" + "success-check" recipes ---------- */
+:root{
+  --toast-open:350ms;--toast-close:250ms;--toast-distance:16px;--toast-blur:2px;--toast-scale:.97;--toast-ease:cubic-bezier(0.22,1,0.36,1);
+  --check-dur:500ms;--check-rotate-from:80deg;--check-y-amount:14px;--check-blur-from:6px;--check-path-delay:80ms;
+  --check-ease-out:cubic-bezier(0.22,1,0.36,1);--check-ease-bob:cubic-bezier(0.34,1.35,0.64,1)}
+.toastwrap{position:fixed;left:0;right:0;bottom:24px;display:flex;justify-content:center;pointer-events:none;z-index:60}
+.t-toast{display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);font-size:14px;font-weight:500;padding:10px 16px 10px 12px;border-radius:999px;
+  box-shadow:0 12px 32px -12px rgba(14,17,22,.45);
+  opacity:0;transform:translateY(var(--toast-distance)) scale(var(--toast-scale));filter:blur(var(--toast-blur));will-change:transform,opacity,filter;
+  transition:opacity var(--toast-close) var(--toast-ease),transform var(--toast-close) var(--toast-ease),filter var(--toast-close) var(--toast-ease)}
+.t-toast.is-open{opacity:1;transform:translateY(0) scale(1);filter:blur(0);
+  transition:opacity var(--toast-open) var(--toast-ease),transform var(--toast-open) var(--toast-ease),filter var(--toast-open) var(--toast-ease)}
+.t-success-check{display:inline-block;width:22px;height:22px;transform-origin:center;opacity:0;will-change:transform,opacity,filter}
+.t-success-check svg{display:block;overflow:visible;width:22px;height:22px}
+.t-success-check circle{fill:#1DB954}
+.t-success-check path{fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:21;stroke-dashoffset:21}
+.t-success-check[data-state=in]{animation:t-check-fade var(--check-dur) var(--check-ease-out) forwards,t-check-rotate var(--check-dur) var(--check-ease-out) forwards,
+  t-check-blur var(--check-dur) var(--check-ease-out) forwards,t-check-bob var(--check-dur) var(--check-ease-bob) forwards}
+.t-success-check[data-state=in] path{animation:t-check-draw var(--check-dur) var(--check-ease-out) var(--check-path-delay) forwards}
+@keyframes t-check-fade{from{opacity:0}to{opacity:1}}
+@keyframes t-check-rotate{from{transform:rotate(var(--check-rotate-from))}to{transform:rotate(0)}}
+@keyframes t-check-blur{from{filter:blur(var(--check-blur-from))}to{filter:blur(0)}}
+@keyframes t-check-bob{from{translate:0 var(--check-y-amount)}to{translate:0 0}}
+@keyframes t-check-draw{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){
+  .t-toast{transition:none!important}
+  .t-success-check{animation:none!important;opacity:1}
+  .t-success-check path{animation:none!important;stroke-dashoffset:0!important}}
+
+/* ---------- contact extras ---------- */
+.clock{margin-top:var(--s3);color:var(--muted);font-size:15px}
+.clock b{color:var(--ink);font:500 15px "Geist Mono",monospace}
+
+/* ---------- trailer links ---------- */
+.trailers{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.trailer{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;text-decoration:none;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:4px 10px 4px 8px;transition:border-color .2s,color .2s,transform .25s var(--spring)}
+.trailer svg{width:12px;height:12px;fill:currentColor;transition:transform .3s var(--spring)}
+.trailer:hover{border-color:var(--accent);color:var(--accent)}
+.trailer:hover svg{transform:scale(1.25)}
+.trailer:active{transform:scale(.97)}
+
+/* ---------- redesign pass ---------- */
+/* typography polish */
+h1,h2,h3,.lede{text-wrap:balance}
+p,li,blockquote{text-wrap:pretty}
+.ticks,.clock b,#countdown,.nnstats b,.tags span{font-variant-numeric:tabular-nums}
+
+/* grain, so flat surfaces don't feel sterile */
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* skip link */
+.skip{position:absolute;left:16px;top:-60px;z-index:70;background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;text-decoration:none;font-size:14px;transition:top .2s var(--ease)}
+.skip:focus{top:16px}
+
+/* hero entrance: transitions.dev "texts-reveal" recipe, one line after another */
+:root{--stagger-dur:700ms;--stagger-distance:14px;--stagger-stagger:90ms;--stagger-blur:4px;--stagger-ease:cubic-bezier(0.22,1,0.36,1)}
+.js .t-stagger-line{opacity:0;transform:translateY(var(--stagger-distance));filter:blur(var(--stagger-blur));
+  transition:opacity var(--stagger-dur) var(--stagger-ease),transform var(--stagger-dur) var(--stagger-ease),filter var(--stagger-dur) var(--stagger-ease);
+  transition-delay:calc(var(--i,0) * var(--stagger-stagger) + 120ms);will-change:transform,opacity,filter}
+.js .t-stagger.is-shown .t-stagger-line{opacity:1;transform:translateY(0);filter:blur(0)}
+h1 .w{display:inline-block}
+@media (prefers-reduced-motion:reduce){.t-stagger-line{transition:none!important}}
+
+/* nav: underline slides to the section you're reading */
+nav ul{position:relative}
+nav ul a[aria-current=true]{color:var(--ink)}
+.navline{position:absolute;left:0;bottom:-6px;height:2px;width:0;background:var(--ink);border-radius:2px;opacity:0;pointer-events:none;
+  transition:transform var(--tabs-dur) var(--tabs-ease),width var(--tabs-dur) var(--tabs-ease),opacity .2s}
+
+/* spotlight borders: the border lights up under the cursor */
+.spot{position:relative}
+.spot::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;opacity:0;transition:opacity .35s var(--ease);
+  background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),var(--accent),transparent 70%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+.spot:hover::after{opacity:1}
+
+/* "Download CV" as a quiet text link: transitions.dev "learn-more-hover" recipe */
+:root{--learn-shift:2px;--learn-spread:8deg;--learn-in:350ms;--learn-out:350ms;--learn-ease:cubic-bezier(0.22,1,0.36,1)}
+.cvlink{display:inline-flex;align-items:center;gap:2px;padding:12px 10px;font-weight:500;font-size:15px;text-decoration:none;color:var(--ink);border-radius:10px;transition:color .2s}
+.cvlink:hover{color:var(--accent)}
+.cvlink:active{transform:translateY(1px)}
+.t-learn-chevron{display:inline-flex;transform:translateX(0);transition:transform var(--learn-out) var(--learn-ease)}
+.t-learn-chevron svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
+.t-learn-arm{transform-box:view-box;transform-origin:10px 8px;vector-effect:non-scaling-stroke;transition:transform var(--learn-out) var(--learn-ease)}
+.t-learn:hover .t-learn-chevron{transform:translateX(var(--learn-shift));transition-duration:var(--learn-in)}
+.t-learn:hover .t-learn-arm{transition-duration:var(--learn-in)}
+.t-learn:hover .t-learn-arm-top{transform:rotate(var(--learn-spread))}
+.t-learn:hover .t-learn-arm-bot{transform:rotate(calc(var(--learn-spread) * -1))}
+@media (prefers-reduced-motion:reduce){.t-learn-chevron,.t-learn-arm{transition:none!important}}
+
+/* countdown digits pop in as they change: transitions.dev "number-pop-in" recipe */
+:root{--digit-dur:500ms;--digit-distance:8px;--digit-blur:2px;--digit-ease:cubic-bezier(0.34,1.45,0.64,1)}
+@keyframes t-digit-pop-in{0%{transform:translateY(var(--digit-distance));opacity:0;filter:blur(var(--digit-blur))}100%{transform:none;opacity:1;filter:blur(0)}}
+#countdown .t-digit{display:inline-block}
+#countdown .t-digit.pop{animation:t-digit-pop-in var(--digit-dur) var(--digit-ease) both}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<dialog id="palette" aria-label="Command menu">
+  <input id="pin" placeholder="Type a command or search…" autocomplete="off" aria-label="Search commands">
+  <ul id="plist" role="listbox"></ul>
+</dialog>
+
+<div class="wrap">
+  <nav>
+    <a class="name" href="#">Pelle Pico</a>
+    <div class="navr">
+      <ul>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#outside">Outside work</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li class="navline" aria-hidden="true"></li>
+      </ul>
+      <button class="kbd" id="kopen" aria-label="Open command menu">⌘K</button>
+    </div>
+  </nav>
+
+  <main id="main">
+  <header class="hero">
+    <div class="t-stagger" id="herotext">
+      <span class="status t-stagger-line" style="--i:0"><i></i>Open to student positions in tech, IT, AI and data</span>
+      <h1><span class="w t-stagger-line" style="--i:1">Pelle</span> <span class="w t-stagger-line" style="--i:2">Pico</span></h1>
+      <p class="lede t-stagger-line" style="--i:3">Data science student at CBS, passionate about AI, programming and whatever new technology comes next. <span>I get genuinely excited about technology, how it works under the hood and what it makes possible next, and I do my best work around people who feel the same way.</span></p>
+      <figure class="quote t-stagger-line" style="--i:4">
+        <blockquote>“He didn't settle for pulling and presenting numbers. He made the effort to understand what we as a company needed to steer by, and turned raw data into well-thought-out, visual KPIs.”</blockquote>
+        <figcaption>From a former employer's recommendation, translated from Danish.</figcaption>
+        <details>
+          <summary>Read the full recommendation</summary>
+          <div class="recbody t-resize">
+          <p>We have found Pelle to be a professionally skilled, quick-thinking and self-driven employee who quickly got to grips with our data and delivered useful results. He is solution-oriented, works thoroughly and is easy to work with. He took responsibility for his tasks and saw them through without needing close supervision, which has been a clear strength in a remote position.</p>
+          <p>One of Pelle's very greatest strengths is his business understanding. He didn't settle for pulling and presenting numbers, but made the effort to understand what we as a company needed to steer by. That enabled him to turn raw data into well-thought-out, visual KPIs, a skill that is essential when working with data and one Pelle masters at a high level.</p>
+          <p>We give Pelle our warmest recommendation and are convinced he will be a valuable asset to a future workplace within data, analysis and digitalisation. We wish him all the best going forward, both in his studies and in his working life.</p>
+          </div>
+        </details>
+      </figure>
+      <div class="ctas t-stagger-line" style="--i:5">
+        <a class="btn" href="mailto:pelle.pico@gmail.com">Email me</a>
+        <a class="cvlink t-learn" href="Pelle_Pico_CV_english_2026_online.pdf" download>Download CV<span class="t-learn-chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path class="t-learn-arm t-learn-arm-top" d="M6 4L10 8"/><path class="t-learn-arm t-learn-arm-bot" d="M10 8L6 12"/></svg></span></a>
+      </div>
+    </div>
+    <figure class="portrait">
+      <canvas id="dots" aria-label="Portrait of Pelle drawn with dots" role="img"></canvas>
+      <figcaption id="dotcap">Hover to scatter the dots.</figcaption>
+    </figure>
+  </header>
+
+  <section id="word" class="wordsec" aria-labelledby="gtitle">
+    <div class="game spot">
+      <div class="gintro">
+        <h2 id="gtitle">Word of the day</h2>
+        <p class="hint" id="hint"></p>
+        <div class="msg" id="msg" role="status" aria-live="polite"></div>
+        <div class="reveal" id="reveal">
+          <div class="word" id="rword"></div>
+          <p id="rtext"></p>
+        </div>
+        <p class="next">A new word about me every day. Next one in <b id="countdown"></b>.</p>
+        <div class="gfoot">
+          <span><i style="background:var(--accent)"></i>right spot &nbsp;<i style="background:var(--amber)"></i>wrong spot</span>
+          <button class="linkbtn" id="giveup">Reveal the answer</button>
+        </div>
+      </div>
+      <div class="board" id="board" aria-label="Game board"></div>
+      <div class="kb" id="kb"></div>
+    </div>
+  </section>
+
+  <section id="fit">
+    <div class="head">
+      <h2>Looking for someone who can…</h2>
+      <p class="sub">Pick what your team needs. I'll show you where I've already done it.</p>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="What your team needs"></div>
+    <div class="proof" id="proof" aria-live="polite"></div>
+    <p class="fitsum" id="fitsum"></p>
+  </section>
+
+  <section id="experience">
+    <div class="head">
+      <h2>Experience</h2>
+      <p class="sub">Three years of student jobs in data, each with more responsibility than the last.</p>
+    </div>
+
+    <div class="gantt spot" id="gantt">
+      <div class="gridlines" id="gridlines"></div>
+      <div class="axis"><span></span><div class="ticks" id="ticks"></div></div>
+      <div id="rows"></div>
+      <div class="glegend"><span><i style="background:repeating-linear-gradient(-45deg,var(--muted) 0 3px,transparent 3px 6px);box-shadow:inset 0 0 0 1px var(--muted)"></i>Education</span><span><i style="background:var(--accent)"></i>Work</span><span>Click a job to jump to it</span></div>
+    </div>
+
+    <div class="job" id="job-hf">
+      <div><div class="org">Helge Frandsen</div><div class="meta">Data analytics<br>Apr 2026 – Aug 2026</div></div>
+      <div>
+        <h3>Built an automated reporting environment from scratch, on my own</h3>
+        <ul>
+          <li>Joined a fairly analog company as the only person with a technical profile.</li>
+          <li>Developed a suite of Power BI dashboards giving management up-to-date KPIs.</li>
+          <li>Set up Power Automate flows that refresh the data every month, removing the manual reporting work entirely.</li>
+          <li>Found the solutions myself and made sure they were actually adopted by the people using them.</li>
+        </ul>
+        <div class="tags"><span>Power BI</span><span>Power Automate</span><span>Driving adoption</span></div>
+      </div>
+    </div>
+
+    <div class="job" id="job-tk">
+      <div><div class="org">Totalkredit</div><div class="meta">Data &amp; insights<br>Aug 2025 – Jul 2026</div></div>
+      <div>
+        <h3>Analysis and data pipelines for partner banks across Denmark</h3>
+        <ul>
+          <li>Daily data analysis in SAS and SQL.</li>
+          <li>Built visualizations in Power BI and Tableau.</li>
+          <li>Helped set up pipelines that deliver monthly and quarterly data to stakeholders in banks around the country.</li>
+        </ul>
+        <div class="tags"><span>SAS</span><span>SQL</span><span>Power BI</span><span>Tableau</span><span>Data pipelines</span></div>
+      </div>
+    </div>
+
+    <div class="job" id="job-sg">
+      <div><div class="org">Semler Gruppen</div><div class="meta">People &amp; Analytics<br>Jun 2023 – Aug 2025</div></div>
+      <div>
+        <h3>Two years of people analytics in a large organisation</h3>
+        <ul>
+          <li>Learned to work in a structured, detail-oriented way.</li>
+          <li>Built patience and clear communication inside a large company.</li>
+          <li>Learned to stay calm and in good spirits in a busy environment.</li>
+        </ul>
+        <div class="tags"><span>People analytics</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="head">
+      <h2>Skills &amp; education</h2>
+      <p class="sub">A business-and-IT bachelor's, a data science master's in progress, and a habit of picking up new tools fast.</p>
+    </div>
+    <div class="skills spot">
+      <div><h3>Programming &amp; analysis</h3><p>Python, SQL, SAS, Excel</p></div>
+      <div><h3>Visualization</h3><p>Power BI, Tableau</p></div>
+      <div><h3>Automation &amp; process</h3><p>Power Automate, BPMN</p></div>
+      <div><h3>Currently learning</h3><p>Machine learning, AI tooling</p></div>
+    </div>
+    <div class="edu">
+      <div><span class="when">2026 – 2028</span><span><b>MSc Data Science &amp; Business Administration</b><br><small>Copenhagen Business School</small></span><span></span></div>
+      <div><span class="when">2022 – 2025</span><span><b>BSc Global Business Informatics</b><br><small>IT University of Copenhagen</small></span><span class="gpa">GPA 9.5</span></div>
+      <div><span class="when">Languages</span><span><b>Danish</b> (native), <b>English</b> (fluent)</span><span></span></div>
+    </div>
+  </section>
+
+  <section id="outside">
+    <div class="head">
+      <h2>Outside work</h2>
+      <p class="sub">The rest of me: big on TV, film and jiu-jitsu.</p>
+    </div>
+    <div class="outside">
+      <div class="list">
+        <div class="item now">
+          <div class="k">Current obsession</div>
+          <div><div class="v">Silo</div><p>A whole society living underground, told never to look outside. I'm completely hooked, and I have theories.</p>
+            <div class="trailers"><a class="trailer" href="https://www.youtube.com/watch?v=8ZYhuvIv1pA" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7.5-4.5z"/></svg>Silo trailer</a></div></div>
+        </div>
+        <div class="item">
+          <div class="k">All-time favorites</div>
+          <div><div class="v">Arrival <em>&amp;</em> Severance</div><p>Slow, strange sci-fi that stays with me for days afterwards. Arrival for the ending, Severance for everything else.</p>
+            <div class="trailers"><a class="trailer" href="https://www.youtube.com/watch?v=tFMo3UJ4B4g" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7.5-4.5z"/></svg>Arrival trailer</a><a class="trailer" href="https://www.youtube.com/watch?v=xEQP4VVuyrY" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7.5-4.5z"/></svg>Severance trailer</a></div></div>
+        </div>
+        <div class="item">
+          <div class="k">Training</div>
+          <div><div class="v">Brazilian jiu-jitsu</div><p>Like chess, except the board is trying to choke you. The most humbling hobby I've ever had. Before that, many years of basketball at a high level.</p></div>
+        </div>
+        <div class="item">
+          <div class="k">Getting around</div>
+          <div><div class="v">By bike. Everywhere.</div><p>If it's in Copenhagen, I can bike there, rain or shine.</p></div>
+        </div>
+        <div class="item">
+          <div class="k">Travel</div>
+          <div><div class="v">Always planning the next trip</div><p>I've seen most of Europe, and recently Vietnam, Thailand, Taiwan, Japan and the USA. Someday, hopefully, Central and South America.</p></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2>Let's talk.</h2>
+    <p class="sub">Based in Copenhagen, and happy to travel for work.</p>
+    <div class="ctas">
+      <a class="btn" href="mailto:pelle.pico@gmail.com">pelle.pico@gmail.com</a>
+      <button class="btn ghost" id="copy">Copy email</button>
+      <a class="btn ghost" href="Pelle_Pico_CV_english_2026_online.pdf" download>Download CV</a>
+    </div>
+    <p class="clock" id="clock"></p>
+  </section>
+  </main>
+</div>
+<div class="toastwrap" aria-live="polite"><div class="t-toast" id="toast">
+  <span class="t-success-check" data-state="out" aria-hidden="true"><svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="11"/><path d="M6.5 11.5l3 3 6-6.5"/></svg></span>
+  <span id="toastmsg">Email copied</span>
+</div></div>
+<footer><div class="wrap">© Pelle Pico, Copenhagen</div></footer>
+
+<script>
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+const pointer = { x: -1e4, y: -1e4, t: 0 };
+addEventListener("pointermove", e => { pointer.x = e.clientX; pointer.y = e.clientY; pointer.t = performance.now(); }, { passive: true });
+document.addEventListener("pointerleave", () => { pointer.x = pointer.y = -1e4; });
+
+/* ================= Dot portrait ================= */
+// The photo redrawn as a halftone of dots. Dots fly in on load and scatter away from the cursor.
+// The eyes follow the cursor by re-sampling the real eyes from the photo a few pixels off-centre,
+// so nothing is drawn in: it's still Pelle's own eyes, just glancing.
+(() => {
+  const IW = 570, IH = 720, STEP = 5;
+  const EYES = [{ x: 225, y: 346 }, { x: 333, y: 343 }], RX = 26, RY = 10;
+  const canvas = document.getElementById("dots"), ctx = canvas.getContext("2d");
+  const img = new Image(); img.src = "pelle.jpg";
+  let N = 0, hx, hy, x, y, vx, vy, rad, eye, scale = 1, radiusAt = null;
+  const look = { x: 0, y: 0 }, target = { x: 0, y: 0 };
+  const dotColor = css("--dot");
+
+  img.onload = () => {
+    const off = document.createElement("canvas"); off.width = IW; off.height = IH;
+    const o = off.getContext("2d"); o.drawImage(img, 0, 0, IW, IH);
+    const px = o.getImageData(0, 0, IW, IH).data;
+    const lum = (a, b) => { a = Math.round(a); b = Math.round(b); let s = 0, n = 0; for (let j = b - 2; j <= b + 2; j++) for (let i = a - 2; i <= a + 2; i++) { const k = (j * IW + i) * 4; s += .299 * px[k] + .587 * px[k + 1] + .114 * px[k + 2]; n++; } return s / n; };
+    radiusAt = (i, j, si = i, sj = j) => {
+      const ed = Math.hypot((i - 280) / 270, (j - 420) / 380);           // fade out toward the edges
+      const fade = Math.max(0, Math.min(1, (1.02 - ed) / .2));
+      const dark = Math.max(0, Math.min(1, (196 - lum(si, sj)) / 140)) * fade;
+      return STEP * .5 * Math.sqrt(dark) * 1.08;
+    };
+    const H = [], V = [], R = [], E = [];
+    for (let j = STEP / 2; j < IH - 2; j += STEP) for (let i = STEP / 2; i < IW - 2; i += STEP) {
+      let e = -1;
+      EYES.forEach((c, k) => { const dx = (i - c.x) / RX, dy = (j - c.y) / RY; if (dx * dx + dy * dy < 1) e = k; });
+      const r = radiusAt(i, j);
+      if (e < 0 && r < .45) continue;
+      H.push(i); V.push(j); R.push(r); E.push(e);
+    }
+    N = H.length;
+    hx = Float32Array.from(H); hy = Float32Array.from(V); rad = Float32Array.from(R); eye = Int8Array.from(E);
+    x = new Float32Array(N); y = new Float32Array(N); vx = new Float32Array(N); vy = new Float32Array(N);
+    for (let k = 0; k < N; k++) {
+      if (reduceMotion) { x[k] = hx[k]; y[k] = hy[k]; }
+      else { const a = Math.random() * 6.283, d = 200 + Math.random() * 500; x[k] = IW / 2 + Math.cos(a) * d; y[k] = IH / 2 + Math.sin(a) * d; }
+    }
+    document.getElementById("dotcap").textContent = `${N.toLocaleString("en")} dots. Hover to scatter them.`;
+    resize(); requestAnimationFrame(frame);
+  };
+
+  function resize() {
+    const w = canvas.clientWidth, h = w * IH / IW, dpr = Math.min(devicePixelRatio || 1, 2);
+    canvas.width = w * dpr; canvas.height = h * dpr; scale = w / IW;
+    ctx.setTransform(scale * dpr, 0, 0, scale * dpr, 0, 0);
+    if (reduceMotion && N) draw();
+  }
+  addEventListener("resize", resize);
+
+  let visible = true;
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(canvas);
+
+  function draw() {
+    ctx.clearRect(0, 0, IW, IH);
+    const p = new Path2D(), ox = look.x * 7, oy = look.y * 2.5;
+    for (let k = 0; k < N; k++) {
+      let r = rad[k];
+      if (eye[k] >= 0 && (ox || oy)) {
+        const c = EYES[eye[k]], dx = hx[k] - ox - c.x, dy = hy[k] - oy - c.y;
+        // sample the photo shifted against the look direction, but never from outside the eye
+        const inside = (dx / RX) ** 2 + (dy / RY) ** 2 < 1;
+        r = inside ? radiusAt(hx[k], hy[k], hx[k] - ox, hy[k] - oy) : rad[k];
+      }
+      if (r < .45) continue;
+      p.moveTo(x[k] + r, y[k]); p.arc(x[k], y[k], r, 0, 6.2832);
+    }
+    ctx.fillStyle = dotColor; ctx.fill(p);
+  }
+  function frame(t) {
+    if (reduceMotion) { draw(); return; }
+    requestAnimationFrame(frame);
+    if (!visible) return;
+    const rect = canvas.getBoundingClientRect();
+    const px = (pointer.x - rect.left) / scale, py = (pointer.y - rect.top) / scale;
+    if (t - pointer.t > 4000) { target.x = 0; target.y = 0; }         // idle: look straight ahead
+    else {
+      const ex = (EYES[0].x + EYES[1].x) / 2, ey = (EYES[0].y + EYES[1].y) / 2;
+      const dx = px - ex, dy = py - ey, len = Math.hypot(dx, dy) || 1, m = Math.min(1, len / 320);
+      target.x = dx / len * m; target.y = dy / len * m;
+    }
+    look.x += (target.x - look.x) * .1; look.y += (target.y - look.y) * .1;
+    const R = 80, R2 = R * R;
+    for (let k = 0; k < N; k++) {
+      let tx = hx[k], ty = hy[k];
+      const dx = hx[k] - px, dy = hy[k] - py, d2 = dx * dx + dy * dy;
+      if (d2 < R2) { const d = Math.sqrt(d2) || 1, f = (1 - d / R) * 26; tx += dx / d * f; ty += dy / d * f; }
+      vx[k] = (vx[k] + (tx - x[k]) * .07) * .8; vy[k] = (vy[k] + (ty - y[k]) * .07) * .8;
+      x[k] += vx[k]; y[k] += vy[k];
+    }
+    draw();
+  }
+})();
+
+/* ================= Recommendation: smooth expand ================= */
+(() => {
+  const det = document.querySelector(".quote details"), body = det.querySelector(".recbody"), sum = det.querySelector("summary");
+  const label = () => sum.textContent = det.open ? "Show less" : "Read the full recommendation";
+  sum.addEventListener("click", e => {
+    e.preventDefault();
+    if (reduceMotion) { det.open = !det.open; label(); return; }
+    const done = f => body.addEventListener("transitionend", function h(ev) { if (ev.propertyName === "height") { body.removeEventListener("transitionend", h); f(); } });
+    if (det.open) {
+      body.style.height = body.scrollHeight + "px";
+      requestAnimationFrame(() => requestAnimationFrame(() => body.style.height = "0px"));
+      done(() => { det.open = false; body.style.height = ""; label(); });
+      sum.textContent = "Read the full recommendation";
+    } else {
+      det.open = true; body.style.height = "0px"; label();
+      requestAnimationFrame(() => requestAnimationFrame(() => body.style.height = body.scrollHeight + "px"));
+      done(() => body.style.height = "");
+    }
+  });
+})();
+
+/* ================= Timeline ================= */
+(() => {
+  const START = 2022, END = 2029;
+  const pos = (y, m) => ((y + (m - 1) / 12 - START) / (END - START)) * 100;
+  const items = [
+    { t: "BSc Global Business Informatics", o: "IT University of Copenhagen", a: [2022, 8], b: [2025, 6], k: "school" },
+    { t: "Semler Gruppen", o: "People & Analytics", a: [2023, 6], b: [2025, 8], k: "work", id: "job-sg" },
+    { t: "Totalkredit", o: "Data & insights", a: [2025, 8], b: [2026, 7], k: "work", id: "job-tk" },
+    { t: "Helge Frandsen", o: "Data analytics", a: [2026, 4], b: [2026, 8], k: "work", id: "job-hf" },
+    { t: "MSc Data Science & Business Admin.", o: "Copenhagen Business School", a: [2026, 9], b: [2028, 6], k: "school" },
+  ];
+  const ticks = document.getElementById("ticks"), gl = document.getElementById("gridlines"), rows = document.getElementById("rows");
+  for (let y = START; y <= END; y++) {
+    const p = ((y - START) / (END - START)) * 100;
+    if (y < END) { const s = document.createElement("span"); s.textContent = y; s.style.left = p + "%"; ticks.appendChild(s); }
+    const i = document.createElement("i"); i.style.left = p + "%"; gl.appendChild(i);
+  }
+  const n = new Date(), now = document.createElement("i");
+  now.className = "now"; now.style.left = pos(n.getFullYear(), n.getMonth() + 1) + "%"; gl.appendChild(now);
+  const fmt = ([y, m]) => new Date(y, m - 1).toLocaleString("en-GB", { month: "short", year: "numeric" });
+  items.forEach((it, idx) => {
+    const r = document.createElement(it.id ? "a" : "div"); r.className = "grow";
+    if (it.id) { r.href = "#" + it.id; r.addEventListener("click", () => { const j = document.getElementById(it.id); j.classList.remove("flash"); void j.offsetWidth; j.classList.add("flash"); }); }
+    const l = pos(...it.a), w = pos(...it.b) - l;
+    r.title = `${it.t}: ${fmt(it.a)} – ${fmt(it.b)}`;
+    r.innerHTML = `<div class="lab">${it.t}<small>${it.o}</small></div><div class="track"><div class="bar ${it.k}" style="left:${l}%;width:${w}%;transition-delay:${idx * 120}ms"></div></div>`;
+    rows.appendChild(r);
+  });
+  const g = document.getElementById("gantt");
+  new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { g.classList.add("drawn"); o.disconnect(); } }), { threshold: .3 }).observe(g);
+})();
+
+/* ================= Word of the day ================= */
+(() => {
+  // Each word: [answer, hint shown before solving, what it says about me]
+  const WORDS = [
+    ["solve", "What I do when things look bleak.", "At Helge Frandsen I was the only technical person in the building, so every problem was mine to solve. I like it that way."],
+    ["query", "What I write in SQL every day.", "SAS and SQL were my daily tools at Totalkredit, pulling data for banks across Denmark."],
+    ["build", "What I did at Helge Frandsen, from scratch.", "I built their automated reporting environment on my own, from the first dashboard to the monthly refresh."],
+    ["silos", "My current TV obsession.", "I'm deep into Silo right now. Completely hooked, and I have theories."],
+    ["chart", "What a good dashboard is made of.", "Power BI and Tableau, with charts that management actually opens."],
+    ["flows", "What Power Automate runs on.", "My flows refresh reporting data every month, so nobody has to do it by hand."],
+    ["guard", "A position in Brazilian jiu-jitsu.", "In BJJ you can be on your back in guard and still be in control. A useful mindset for busy weeks."],
+    ["learn", "Something I do quickly.", "New tool, new domain, new team: I pick things up fast and enjoy the ramp-up."],
+    ["cycle", "How I get around Copenhagen.", "I bike everywhere. Rain, wind, doesn't matter."],
+    ["model", "What data scientists fit.", "Building models properly is exactly what I'm at CBS to learn."],
+    ["hoops", "What I played for years.", "Many years of high-level basketball taught me how to work as a team toward one goal."],
+    ["pivot", "An Excel table, or a change of plan.", "I use both. When a plan stops working, I change course fast."],
+    ["focus", "What I keep when it gets busy.", "Staying calm and in good spirits in a busy environment is something I learned early at Semler."],
+    ["alien", "Who shows up in my favourite film.", "Arrival: a linguist decodes an alien language by finding the patterns in it. My all-time favourite film."],
+    ["belts", "What you earn slowly in jiu-jitsu.", "BJJ belts take years. I'm fine with slow progress as long as it's real."],
+    ["trips", "What I'm always planning.", "Most of Europe, then Vietnam, Thailand, Taiwan, Japan and the USA. Central and South America are on the wish list."],
+  ];
+  const now = new Date();
+  const dayNum = Math.floor(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / 864e5);
+  const [ANSWER, HINT, TEXT] = WORDS[dayNum % WORDS.length];
+  const KEY = "pp-word-" + dayNum, ROWS = 6;
+  document.getElementById("hint").textContent = "Five letters, six tries. Hint: " + HINT;
+
+  const board = document.getElementById("board"), kb = document.getElementById("kb"), msg = document.getElementById("msg");
+  let row = 0, col = 0, done = false, guesses = [];
+  const grid = [];
+  for (let r = 0; r < ROWS; r++) {
+    const br = document.createElement("div"); br.className = "brow"; grid.push([]);
+    for (let c = 0; c < 5; c++) { const t = document.createElement("div"); t.className = "tile"; br.appendChild(t); grid[r].push(t); }
+    board.appendChild(br);
+  }
+  const keys = {};
+  ["qwertyuiop", "asdfghjkl", "↵zxcvbnm⌫"].forEach(line => {
+    const kr = document.createElement("div"); kr.className = "krow";
+    [...line].forEach(ch => {
+      const b = document.createElement("button"); b.className = "key";
+      if (ch === "↵") { b.textContent = "enter"; b.classList.add("wide"); b.dataset.k = "Enter"; }
+      else if (ch === "⌫") { b.textContent = "⌫"; b.classList.add("wide"); b.dataset.k = "Backspace"; b.setAttribute("aria-label", "Delete"); }
+      else { b.textContent = ch; b.dataset.k = ch; keys[ch] = b; }
+      b.addEventListener("click", () => press(b.dataset.k));
+      kr.appendChild(b);
+    });
+    kb.appendChild(kr);
+  });
+
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(guesses)); } catch (e) {} };
+  function press(k) {
+    if (done) return;
+    if (k === "Enter") return submit();
+    if (k === "Backspace") { if (col > 0) { col--; grid[row][col].textContent = ""; grid[row][col].classList.remove("filled"); } return; }
+    if (/^[a-z]$/.test(k) && col < 5) { const t = grid[row][col++]; t.textContent = k; t.classList.add("filled"); msg.textContent = ""; }
+  }
+  function score(guess) {
+    const res = Array(5).fill("miss"), pool = [...ANSWER];
+    [...guess].forEach((ch, i) => { if (ch === ANSWER[i]) { res[i] = "hit"; pool[i] = null; } });
+    [...guess].forEach((ch, i) => { if (res[i] !== "hit") { const j = pool.indexOf(ch); if (j > -1) { res[i] = "near"; pool[j] = null; } } });
+    return res;
+  }
+  const rank = { miss: 0, near: 1, hit: 2 };
+  function colorKey(ch, cls) {
+    const key = keys[ch]; if (!key) return;
+    const cur = ["hit", "near", "miss"].find(c => key.classList.contains(c));
+    if (!cur || rank[cls] > rank[cur]) { key.classList.remove("hit", "near", "miss"); key.classList.add(cls); }
+  }
+  function paint(r, guess, res, animate, cb) {
+    const step = animate && !reduceMotion ? 180 : 0;
+    res.forEach((cls, i) => setTimeout(() => {
+      const t = grid[r][i]; t.textContent = guess[i]; t.classList.add("filled");
+      if (step) t.classList.add("flip");
+      setTimeout(() => { t.classList.add(cls); colorKey(guess[i], cls); }, step ? 220 : 0);
+    }, i * step));
+    setTimeout(cb, step ? 5 * step + 300 : 0);
+  }
+  function after(guess) {
+    if (guess === ANSWER) return finish(`Solved in ${row + 1}/6.`);
+    if (row === ROWS - 1) return finish("Out of tries.");
+    row++; col = 0; done = false;
+  }
+  function submit() {
+    const br = board.children[row];
+    if (col < 5) { br.classList.remove("shake"); void br.offsetWidth; br.classList.add("shake"); msg.textContent = "Five letters, please."; return; }
+    const guess = grid[row].map(t => t.textContent).join(""); done = true;
+    guesses.push(guess); save();
+    paint(row, guess, score(guess), true, () => after(guess));
+  }
+  function finish(text) {
+    done = true; msg.textContent = text;
+    document.getElementById("rword").textContent = ANSWER.toUpperCase();
+    document.getElementById("rtext").textContent = TEXT;
+    document.getElementById("reveal").classList.add("show");
+    kb.style.display = "none"; document.getElementById("giveup").style.visibility = "hidden";
+  }
+  function tick() {
+    const n = new Date(), mid = new Date(n.getFullYear(), n.getMonth(), n.getDate() + 1), s = Math.max(0, Math.floor((mid - n) / 1000));
+    const str = [s / 3600, s % 3600 / 60, s % 60].map(v => String(Math.floor(v)).padStart(2, "0")).join(":");
+    const el = document.getElementById("countdown"), prev = el.dataset.v || "";
+    el.replaceChildren(...[...str].map((ch, i) => { const d = document.createElement("span"); d.className = "t-digit" + (prev && prev[i] !== ch ? " pop" : ""); d.textContent = ch; return d; }));
+    el.dataset.v = str; el.setAttribute("aria-label", str);
+    if (s === 0) setTimeout(() => location.reload(), 1500);   // midnight: fetch the new word
+  }
+  document.getElementById("giveup").addEventListener("click", () => {
+    if (done) return; done = true;
+    for (let i = 0; i < 5; i++) { grid[row][i].textContent = ""; grid[row][i].classList.remove("filled"); }
+    guesses.push(ANSWER); save();
+    paint(row, ANSWER, Array(5).fill("hit"), true, () => finish("Revealed."));
+  });
+  addEventListener("keydown", e => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === "Enter" && e.target.closest("button,a")) return;
+    if (document.getElementById("palette").open || e.target.closest("input,textarea")) return;
+    const g = board.getBoundingClientRect();
+    if (g.bottom < 0 || g.top > innerHeight) return; // only while the game is on screen
+    if (e.key === "Enter" || e.key === "Backspace" || /^[a-z]$/i.test(e.key)) { e.preventDefault(); press(e.key.length === 1 ? e.key.toLowerCase() : e.key); }
+  });
+
+  tick(); setInterval(tick, 1000);
+
+  // restore today's progress
+  try { guesses = JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { guesses = []; }
+  guesses.forEach(g => { done = true; paint(row, g, score(g), false, () => {}); after(g); });
+})();
+
+/* ================= "Looking for someone who can…" ================= */
+(() => {
+  const NEEDS = [
+    ["Build dashboards", "Power BI dashboards that give Helge Frandsen's management up-to-date KPIs, plus Power BI and Tableau work at Totalkredit.", "Helge Frandsen, Totalkredit"],
+    ["Automate boring work", "Power Automate flows that refresh reporting data every month, so nobody has to do it by hand anymore.", "Helge Frandsen, 2026"],
+    ["Write SQL", "Daily analysis in SQL and SAS, feeding monthly and quarterly data to banks across Denmark.", "Totalkredit, 2025–26"],
+    ["Code in Python", "Used throughout my bachelor's in data analysis, and the core language of my data science master's.", "ITU, CBS"],
+    ["Work independently", "I was the only technical person at Helge Frandsen, so I found the solutions myself and got them adopted.", "Helge Frandsen, 2026"],
+    ["Drive change", "Took a fairly analog company from manual reporting to automated dashboards, and made sure people actually used them.", "Helge Frandsen, 2026"],
+    ["Pick up new tech fast", "Quick learner by nature. Curious about AI and new tooling, and happy to dive into a tool I haven't touched before.", "Every job so far"],
+    ["Play on a team", "Many years of high-level basketball, and two years in Semler's People & Analytics team.", "Semler Gruppen, basketball"],
+  ];
+  const chips = document.getElementById("chips"), proof = document.getElementById("proof"), sum = document.getElementById("fitsum");
+  const picked = new Set();
+  NEEDS.forEach(([need], i) => {
+    const b = document.createElement("button"); b.className = "chip"; b.textContent = need; b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", () => { picked.has(i) ? picked.delete(i) : picked.add(i); b.setAttribute("aria-pressed", picked.has(i)); draw(); });
+    chips.appendChild(b);
+  });
+  function draw() {
+    if (!picked.size) { proof.innerHTML = '<p class="empty">Select one or more of the above.</p>'; sum.textContent = ""; return; }
+    proof.innerHTML = "";
+    [...picked].sort((a, b) => a - b).forEach(i => {
+      const [need, text, src] = NEEDS[i], c = document.createElement("div"); c.className = "pcard spot";
+      c.innerHTML = `<b></b><p></p><small></small>`;
+      c.querySelector("b").textContent = need; c.querySelector("p").textContent = text; c.querySelector("small").textContent = src;
+      proof.appendChild(c);
+    });
+    sum.textContent = picked.size === NEEDS.length ? "All of them. Sounds like we should talk." : `${picked.size} of ${NEEDS.length} selected. Each one is backed by real experience.`;
+  }
+  draw();
+})();
+
+/* ================= Command palette ================= */
+(() => {
+  const dlg = document.getElementById("palette"), input = document.getElementById("pin"), list = document.getElementById("plist");
+  const go = id => () => document.getElementById(id).scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+  const copyEmail = () => window.copyEmail();
+  const CMDS = [
+    ["Email Pelle", "Action", () => location.href = "mailto:pelle.pico@gmail.com"],
+    ["Copy email address", "Action", copyEmail],
+    ["Download CV", "Action", () => { const a = document.createElement("a"); a.href = "Pelle_Pico_CV_english_2026_online.pdf"; a.download = ""; a.click(); }],
+    ["Go to experience", "Navigate", go("experience")],
+    ["Go to skills & education", "Navigate", go("skills")],
+    ["Go to word of the day", "Navigate", go("word")],
+    ["Go to contact", "Navigate", go("contact")],
+  ];
+  let shown = [], sel = 0;
+  function renderList() {
+    const q = input.value.toLowerCase().trim();
+    shown = CMDS.filter(c => c[0].toLowerCase().includes(q) || c[1].toLowerCase().includes(q));
+    sel = Math.min(sel, Math.max(0, shown.length - 1));
+    list.innerHTML = shown.length ? "" : '<li class="empty">No matching commands.</li>';
+    shown.forEach((c, i) => {
+      const li = document.createElement("li"); li.setAttribute("role", "option"); li.setAttribute("aria-selected", i === sel);
+      li.innerHTML = "<span></span><small></small>"; li.firstChild.textContent = c[0]; li.lastChild.textContent = c[1];
+      li.addEventListener("mousemove", () => { if (sel !== i) { sel = i; renderList(); } });
+      li.addEventListener("click", () => run(i));
+      list.appendChild(li);
+    });
+  }
+  function run(i) { const c = shown[i]; if (!c) return; dlg.close(); c[2](); }
+  function open() { input.value = ""; sel = 0; renderList(); dlg.showModal(); input.focus(); }
+  input.addEventListener("input", () => { sel = 0; renderList(); });
+  input.addEventListener("keydown", e => {
+    if (e.key === "ArrowDown") { e.preventDefault(); sel = (sel + 1) % Math.max(1, shown.length); renderList(); }
+    if (e.key === "ArrowUp") { e.preventDefault(); sel = (sel - 1 + shown.length) % Math.max(1, shown.length); renderList(); }
+    if (e.key === "Enter") { e.preventDefault(); run(sel); }
+  });
+  dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+  const kbtn = document.getElementById("kopen");
+  if (!/Mac|iPhone|iPad/.test(navigator.platform)) kbtn.textContent = "Ctrl K";
+  kbtn.addEventListener("click", open);
+  addEventListener("keydown", e => { if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); dlg.open ? dlg.close() : open(); } });
+})();
+
+/* ================= Contact extras ================= */
+(() => {
+  const toast = document.getElementById("toast"), msg = document.getElementById("toastmsg"), check = toast.querySelector(".t-success-check");
+  let hideT;
+  function showToast(text) {
+    msg.textContent = text;
+    check.setAttribute("data-state", "out"); void check.offsetWidth; check.setAttribute("data-state", "in");
+    toast.classList.add("is-open");
+    clearTimeout(hideT); hideT = setTimeout(() => toast.classList.remove("is-open"), 2200);
+  }
+  window.copyEmail = async () => {
+    try { await navigator.clipboard.writeText("pelle.pico@gmail.com"); showToast("Email copied: pelle.pico@gmail.com"); }
+    catch (e) { showToast("Couldn't copy. My email is pelle.pico@gmail.com"); }
+  };
+  document.getElementById("copy").addEventListener("click", window.copyEmail);
+  const clock = document.getElementById("clock");
+  function tick() {
+    const now = new Date(), tz = { timeZone: "Europe/Copenhagen" };
+    const time = now.toLocaleTimeString("en-GB", { ...tz, hour: "2-digit", minute: "2-digit" });
+    const day = now.toLocaleDateString("en-GB", { ...tz, weekday: "long" }), h = +time.slice(0, 2);
+    const weekend = day === "Saturday" || day === "Sunday";
+    const doing = h < 7 ? "asleep, like any sensible person"
+      : weekend ? "either getting ahead on next week's reading, on the mat at the BJJ gym, or one episode deeper into a TV show than I planned"
+      : h < 9 ? "biking across town" : h < 17 ? "at CBS or at work" : h < 20 ? "on the mat at the BJJ gym" : "one episode deeper into a TV show than I planned";
+    clock.innerHTML = `It's <b>${day} ${time}</b> in Copenhagen, so I'm probably ${doing}. Email me anyway.`;
+  }
+  tick(); setInterval(tick, 30000);
+})();
+
+/* ================= Hero entrance ================= */
+requestAnimationFrame(() => requestAnimationFrame(() => document.getElementById("herotext").classList.add("is-shown")));
+
+/* ================= Nav: current section ================= */
+(() => {
+  const links = [...document.querySelectorAll("nav ul a")], line = document.querySelector(".navline");
+  const place = a => {
+    links.forEach(l => l.setAttribute("aria-current", l === a));
+    if (!a) { line.style.opacity = 0; return; }
+    line.style.opacity = 1; line.style.width = a.offsetWidth + "px"; line.style.transform = `translateX(${a.parentElement.offsetLeft}px)`;
+  };
+  const byId = Object.fromEntries(links.map(a => [a.getAttribute("href").slice(1), a]));
+  const seen = new Map(["fit", "experience", "skills", "outside", "contact"].map(id => [id, false]));
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => seen.set(e.target.id, e.isIntersecting));
+    const cur = [...seen].filter(([, v]) => v).map(([k]) => k).pop();
+    place(byId[cur]);
+  }, { rootMargin: "-40% 0px -55% 0px" });
+  seen.forEach((_, id) => io.observe(document.getElementById(id)));
+  addEventListener("resize", () => place(links.find(l => l.getAttribute("aria-current") === "true")));
+})();
+
+/* ================= Spotlight borders ================= */
+document.addEventListener("pointermove", e => {
+  const el = e.target.closest && e.target.closest(".spot"); if (!el) return;
+  const r = el.getBoundingClientRect();
+  el.style.setProperty("--mx", e.clientX - r.left + "px"); el.style.setProperty("--my", e.clientY - r.top + "px");
+}, { passive: true });
+</script>
+</body>
+</html>
