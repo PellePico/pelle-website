@@ -755,6 +755,11 @@ document.addEventListener("pointerleave", () => { pointer.x = pointer.y = -1e4; 
     kb.appendChild(kr);
   });
 
+  // Real English words only (words.txt: five-letter words from dwyl/english-words, public domain).
+  // Until it loads, or if it fails to load, every guess is accepted so the game never breaks.
+  let dict = null;
+  fetch("words.txt").then(r => r.ok ? r.text() : Promise.reject()).then(t => { dict = new Set(t.split("\n")); }).catch(() => {});
+
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(guesses)); } catch (e) {} };
   function press(k) {
     if (done) return;
@@ -790,8 +795,11 @@ document.addEventListener("pointerleave", () => { pointer.x = pointer.y = -1e4; 
   }
   function submit() {
     const br = board.children[row];
-    if (col < 5) { br.classList.remove("shake"); void br.offsetWidth; br.classList.add("shake"); msg.textContent = "Five letters, please."; return; }
-    const guess = grid[row].map(t => t.textContent).join(""); done = true;
+    const reject = text => { br.classList.remove("shake"); void br.offsetWidth; br.classList.add("shake"); msg.textContent = text; };
+    if (col < 5) return reject("Five letters, please.");
+    const guess = grid[row].map(t => t.textContent).join("");
+    if (dict && guess !== ANSWER && !dict.has(guess)) return reject("Not in the word list.");
+    done = true;
     guesses.push(guess); save();
     paint(row, guess, score(guess), true, () => after(guess));
   }
