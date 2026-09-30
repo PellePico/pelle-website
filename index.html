@@ -221,7 +221,7 @@ body{background-image:
 .kbd:active{transform:scale(.96)}
 #palette{margin:12vh auto auto;width:min(560px,calc(100% - 32px));border:1px solid var(--line);border-radius:14px;padding:0;background:var(--surface);color:var(--ink);
   box-shadow:0 30px 80px -20px rgba(14,17,22,.45)}
-#palette::backdrop{background:rgba(14,17,22,.35);backdrop-filter:blur(2px)}
+#palette::backdrop{background:rgba(14,17,22,.35);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
 #palette input{width:100%;border:0;border-bottom:1px solid var(--line);padding:16px 18px;font:400 16px "Geist",sans-serif;background:transparent;color:inherit;outline:none}
 #palette ul{list-style:none;max-height:340px;overflow:auto;padding:6px}
 #palette li{display:flex;justify-content:space-between;gap:12px;padding:9px 12px;border-radius:8px;cursor:pointer;font-size:14px}
@@ -272,6 +272,15 @@ body{background-image:
   .t-toast{transition:none!important}
   .t-success-check{animation:none!important;opacity:1}
   .t-success-check path{animation:none!important;stroke-dashoffset:0!important}}
+
+/* ---------- email menu: mailto does nothing in browsers without a mail app, so offer webmail too ---------- */
+.mailmenu{position:absolute;z-index:65;min-width:220px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px;
+  box-shadow:0 20px 50px -16px rgba(14,17,22,.35);opacity:0;transform:translateY(-4px) scale(.98);transform-origin:top left;pointer-events:none;
+  transition:opacity .18s var(--ease),transform .18s var(--ease)}
+.mailmenu.is-open{opacity:1;transform:none;pointer-events:auto}
+.mailmenu a,.mailmenu button{display:block;width:100%;text-align:left;padding:9px 12px;border:0;border-radius:8px;background:none;color:var(--ink);font:400 14px "Geist",system-ui,sans-serif;text-decoration:none;cursor:pointer}
+.mailmenu a:hover,.mailmenu button:hover,.mailmenu a:focus-visible,.mailmenu button:focus-visible{background:var(--chip);outline:none}
+.mailmenu small{display:block;padding:6px 12px 4px;color:var(--muted);font:12px "Geist Mono",monospace}
 
 /* ---------- contact extras ---------- */
 .clock{margin-top:var(--s3);color:var(--muted);font-size:15px}
@@ -386,7 +395,7 @@ nav ul a[aria-current=true]{color:var(--ink)}
         </details>
       </figure>
       <div class="ctas t-stagger-line" style="--i:5">
-        <a class="btn" href="mailto:pelle.pico@gmail.com">Email me</a>
+        <a class="btn" href="mailto:pelle.pico@gmail.com" data-mail aria-haspopup="menu" aria-expanded="false">Email me</a>
         <a class="cvlink t-learn" href="Pelle_Pico_CV_english_2026_online.pdf" download>Download CV<span class="t-learn-chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path class="t-learn-arm t-learn-arm-top" d="M6 4L10 8"/><path class="t-learn-arm t-learn-arm-bot" d="M10 8L6 12"/></svg></span></a>
       </div>
     </div>
@@ -537,7 +546,7 @@ nav ul a[aria-current=true]{color:var(--ink)}
     <h2>Let's talk.</h2>
     <p class="sub">Based in Copenhagen, and happy to travel for work.</p>
     <div class="ctas">
-      <a class="btn" href="mailto:pelle.pico@gmail.com">pelle.pico@gmail.com</a>
+      <a class="btn" href="mailto:pelle.pico@gmail.com" data-mail aria-haspopup="menu" aria-expanded="false">pelle.pico@gmail.com</a>
       <button class="btn ghost" id="copy">Copy email</button>
       <a class="btn ghost" href="Pelle_Pico_CV_english_2026_online.pdf" download>Download CV</a>
     </div>
@@ -549,6 +558,13 @@ nav ul a[aria-current=true]{color:var(--ink)}
   <span class="t-success-check" data-state="out" aria-hidden="true"><svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="11"/><path d="M6.5 11.5l3 3 6-6.5"/></svg></span>
   <span id="toastmsg">Email copied</span>
 </div></div>
+<div class="mailmenu" id="mailmenu" role="menu" aria-label="Email Pelle">
+  <small>pelle.pico@gmail.com</small>
+  <a role="menuitem" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=pelle.pico@gmail.com" target="_blank" rel="noopener">Write in Gmail</a>
+  <a role="menuitem" href="https://outlook.office.com/mail/deeplink/compose?to=pelle.pico@gmail.com" target="_blank" rel="noopener">Write in Outlook</a>
+  <a role="menuitem" href="mailto:pelle.pico@gmail.com">Use your mail app</a>
+  <button role="menuitem" type="button" id="mailcopy">Copy address</button>
+</div>
 <footer><div class="wrap">© Pelle Pico, Copenhagen</div></footer>
 
 <script>
@@ -879,7 +895,7 @@ document.addEventListener("pointerleave", () => { pointer.x = pointer.y = -1e4; 
   const go = id => () => document.getElementById(id).scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
   const copyEmail = () => window.copyEmail();
   const CMDS = [
-    ["Email Pelle", "Action", () => location.href = "mailto:pelle.pico@gmail.com"],
+    ["Email Pelle", "Action", () => { const b = document.querySelector("#contact [data-mail]"); b.scrollIntoView({ block: "center" }); window.openMailMenu(b); }],
     ["Copy email address", "Action", copyEmail],
     ["Download CV", "Action", () => { const a = document.createElement("a"); a.href = "Pelle_Pico_CV_english_2026_online.pdf"; a.download = ""; a.click(); }],
     ["Go to experience", "Navigate", go("experience")],
@@ -926,11 +942,53 @@ document.addEventListener("pointerleave", () => { pointer.x = pointer.y = -1e4; 
     toast.classList.add("is-open");
     clearTimeout(hideT); hideT = setTimeout(() => toast.classList.remove("is-open"), 2200);
   }
+  // Older browsers (and non-https pages) have no navigator.clipboard, so fall back to a hidden textarea.
+  const legacyCopy = text => {
+    const t = document.createElement("textarea"); t.value = text; t.setAttribute("readonly", ""); t.style.cssText = "position:fixed;opacity:0";
+    document.body.appendChild(t); t.select(); const ok = document.execCommand("copy"); t.remove(); return ok;
+  };
   window.copyEmail = async () => {
-    try { await navigator.clipboard.writeText("pelle.pico@gmail.com"); showToast("Email copied: pelle.pico@gmail.com"); }
-    catch (e) { showToast("Couldn't copy. My email is pelle.pico@gmail.com"); }
+    try {
+      if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText("pelle.pico@gmail.com");
+      else if (!legacyCopy("pelle.pico@gmail.com")) throw 0;
+      showToast("Email copied: pelle.pico@gmail.com");
+    } catch (e) { showToast("Couldn't copy. My email is pelle.pico@gmail.com"); }
   };
   document.getElementById("copy").addEventListener("click", window.copyEmail);
+
+  // Email menu. A bare mailto: link silently does nothing in Chrome when no mail app is set up,
+  // which is common for Gmail/Outlook-in-the-browser people, so the buttons offer webmail too.
+  const menu = document.getElementById("mailmenu"), items = [...menu.querySelectorAll("a,button")];
+  let opener = null;
+  function closeMenu(refocus) {
+    if (!opener) return;
+    menu.classList.remove("is-open"); opener.setAttribute("aria-expanded", "false");
+    if (refocus) opener.focus();
+    opener = null;
+  }
+  window.openMailMenu = btn => {
+    const r = btn.getBoundingClientRect(), w = Math.max(220, menu.offsetWidth), h = menu.offsetHeight;
+    const up = r.bottom + 8 + h > innerHeight && r.top - 8 - h > 0;   // no room below: open above the button
+    menu.style.left = Math.max(8, Math.min(r.left, innerWidth - w - 8)) + scrollX + "px";
+    menu.style.top = (up ? r.top - 8 - h : r.bottom + 8) + scrollY + "px";
+    menu.style.transformOrigin = up ? "bottom left" : "top left";
+    opener = btn; btn.setAttribute("aria-expanded", "true"); menu.classList.add("is-open");
+    items[0].focus({ preventScroll: true });
+  };
+  document.querySelectorAll("[data-mail]").forEach(btn => btn.addEventListener("click", e => {
+    e.preventDefault();
+    opener === btn ? closeMenu() : (closeMenu(), openMailMenu(btn));
+  }));
+  document.getElementById("mailcopy").addEventListener("click", () => { closeMenu(); window.copyEmail(); });
+  items.forEach(a => a.tagName === "A" && a.addEventListener("click", () => closeMenu()));
+  document.addEventListener("click", e => { if (opener && !menu.contains(e.target) && !opener.contains(e.target)) closeMenu(); });
+  menu.addEventListener("keydown", e => {
+    const i = items.indexOf(document.activeElement);
+    if (e.key === "Escape") { e.preventDefault(); closeMenu(true); }
+    else if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); items[(i + (e.key === "ArrowDown" ? 1 : items.length - 1)) % items.length].focus(); }
+    else if (e.key === "Tab") closeMenu();
+  });
+  addEventListener("resize", () => closeMenu());
   const clock = document.getElementById("clock");
   function tick() {
     const now = new Date(), tz = { timeZone: "Europe/Copenhagen" };
